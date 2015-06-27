@@ -19,7 +19,7 @@
 		942AC69616E81A520062CA8A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 942AC69516E81A520062CA8A /* Default.png */; };
 		942AC69816E81A520062CA8A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942AC69716E81A520062CA8A /* Default@2x.png */; };
 		942AC69A16E81A520062CA8A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942AC69916E81A520062CA8A /* Default-568h@2x.png */; };
-		942AC69D16E81A520062CA8A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942AC69C16E81A520062CA8A /* ViewController.m */; };
+		942AC69D16E81A520062CA8A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 942AC69C16E81A520062CA8A /* ViewController.mm */; };
 		942AC6AB16E81AC20062CA8A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 942AC6A716E81AC20062CA8A /* CoreMotion.framework */; };
 		942AC6AC16E81AC20062CA8A /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 942AC6A816E81AC20062CA8A /* ExternalAccessory.framework */; };
 		942AC6AD16E81AC20062CA8A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 942AC6A916E81AC20062CA8A /* QuartzCore.framework */; };
@@ -27,6 +27,10 @@
 		BF3C9E4918A17DCF0024DF7A /* RMCharacter.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF3C9E4618A17DCF0024DF7A /* RMCharacter.bundle */; };
 		BF3C9E4A18A17DCF0024DF7A /* RMCharacter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3C9E4718A17DCF0024DF7A /* RMCharacter.framework */; };
 		BF3C9E4B18A17DCF0024DF7A /* RMCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3C9E4818A17DCF0024DF7A /* RMCore.framework */; };
+		CA889EC51B3E3AC200295B78 /* AbstractOCVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA889EC11B3E3AC200295B78 /* AbstractOCVViewController.m */; };
+		CA889EC91B3E3B1A00295B78 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA889EC81B3E3B1A00295B78 /* CoreVideo.framework */; };
+		CA889ECB1B3E3B2600295B78 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA889ECA1B3E3B2600295B78 /* CoreMedia.framework */; };
+		CA889ECD1B3E3C4C00295B78 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA889ECC1B3E3C4C00295B78 /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +52,7 @@
 		942AC69716E81A520062CA8A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		942AC69916E81A520062CA8A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		942AC69B16E81A520062CA8A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		942AC69C16E81A520062CA8A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		942AC69C16E81A520062CA8A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		942AC6A716E81AC20062CA8A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		942AC6A816E81AC20062CA8A /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		942AC6A916E81AC20062CA8A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -56,6 +60,11 @@
 		BF3C9E4618A17DCF0024DF7A /* RMCharacter.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RMCharacter.bundle; path = ../../frameworks/RMCharacter.bundle; sourceTree = "<group>"; };
 		BF3C9E4718A17DCF0024DF7A /* RMCharacter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RMCharacter.framework; path = ../../frameworks/RMCharacter.framework; sourceTree = "<group>"; };
 		BF3C9E4818A17DCF0024DF7A /* RMCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RMCore.framework; path = ../../frameworks/RMCore.framework; sourceTree = "<group>"; };
+		CA889EC01B3E3AC200295B78 /* AbstractOCVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractOCVViewController.h; sourceTree = "<group>"; };
+		CA889EC11B3E3AC200295B78 /* AbstractOCVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractOCVViewController.m; sourceTree = "<group>"; };
+		CA889EC81B3E3B1A00295B78 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		CA889ECA1B3E3B2600295B78 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		CA889ECC1B3E3C4C00295B78 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +72,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA889ECB1B3E3B2600295B78 /* CoreMedia.framework in Frameworks */,
+				CA889EC91B3E3B1A00295B78 /* CoreVideo.framework in Frameworks */,
 				0E6A40C61B3219DA004E4DC1 /* CFNetwork.framework in Frameworks */,
 				0E6A40C41B3219B4004E4DC1 /* Security.framework in Frameworks */,
 				942AC6B416E81C410062CA8A /* AVFoundation.framework in Frameworks */,
 				942AC68416E81A520062CA8A /* UIKit.framework in Frameworks */,
 				942AC68616E81A520062CA8A /* Foundation.framework in Frameworks */,
 				942AC68816E81A520062CA8A /* CoreGraphics.framework in Frameworks */,
+				CA889ECD1B3E3C4C00295B78 /* opencv2.framework in Frameworks */,
 				BF3C9E4B18A17DCF0024DF7A /* RMCore.framework in Frameworks */,
 				942AC6AB16E81AC20062CA8A /* CoreMotion.framework in Frameworks */,
 				BF3C9E4A18A17DCF0024DF7A /* RMCharacter.framework in Frameworks */,
@@ -100,6 +112,9 @@
 		942AC68216E81A520062CA8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA889ECC1B3E3C4C00295B78 /* opencv2.framework */,
+				CA889ECA1B3E3B2600295B78 /* CoreMedia.framework */,
+				CA889EC81B3E3B1A00295B78 /* CoreVideo.framework */,
 				0E6A40C51B3219DA004E4DC1 /* CFNetwork.framework */,
 				0E6A40C31B3219B4004E4DC1 /* Security.framework */,
 				942AC6B216E81AF70062CA8A /* Romo */,
@@ -121,8 +136,10 @@
 				0E6A40C11B3218EB004E4DC1 /* GCDAsyncSocket.m */,
 				942AC69216E81A520062CA8A /* AppDelegate.h */,
 				942AC69316E81A520062CA8A /* AppDelegate.m */,
+				CA889EC01B3E3AC200295B78 /* AbstractOCVViewController.h */,
+				CA889EC11B3E3AC200295B78 /* AbstractOCVViewController.m */,
 				942AC69B16E81A520062CA8A /* ViewController.h */,
-				942AC69C16E81A520062CA8A /* ViewController.m */,
+				942AC69C16E81A520062CA8A /* ViewController.mm */,
 				942AC68A16E81A520062CA8A /* Supporting Files */,
 			);
 			path = HelloRomo;
@@ -223,10 +240,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA889EC51B3E3AC200295B78 /* AbstractOCVViewController.m in Sources */,
 				0E6A40C21B3218EB004E4DC1 /* GCDAsyncSocket.m in Sources */,
 				942AC69016E81A520062CA8A /* main.m in Sources */,
 				942AC69416E81A520062CA8A /* AppDelegate.m in Sources */,
-				942AC69D16E81A520062CA8A /* ViewController.m in Sources */,
+				942AC69D16E81A520062CA8A /* ViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +329,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../frameworks/**",
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloRomo/HelloRomo-Prefix.pch";
@@ -337,6 +356,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../frameworks/**",
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloRomo/HelloRomo-Prefix.pch";
