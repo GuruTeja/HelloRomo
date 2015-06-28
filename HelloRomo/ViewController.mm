@@ -37,6 +37,8 @@ static BOOL _debug = NO;
     BOOL isRunning;
     
     GCDAsyncSocket *listenSocket;
+    
+    CMMotionManager *mManager;
 }
 
 @end
@@ -53,6 +55,7 @@ double heading;
 double j = 0;
 double confidence;
 double maxradius = 1;
+double excess1 = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,8 +86,9 @@ double maxradius = 1;
     //-[self startUpdatesWithSliderValue:100];
     //-[self perform:@"GO"];
     NSLog(@"out of method");
-    
     [self tappedOnRed];
+    [self startUpdatesWithSliderValue:100];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -177,13 +181,11 @@ double maxradius = 1;
             NSLog(@"confidence level reached to stop the romo");
             self.Romo.expression=RMCharacterExpressionAngry;
             self.Romo.emotion=RMCharacterEmotionBewildered;
-            [self.Romo3 stopAllMotion];
-
+            [self.Romo3 stopDriving];
+            _debug = YES;
+            [mManager stopAccelerometerUpdates];
            
-        }else if (confidence == 0){
-                [self startUpdatesWithSliderValue:100];
         }
-        
         //threshed image is not needed any more and needs to be released
         cvReleaseImage(&imgThreshed);
         
@@ -200,10 +202,10 @@ double maxradius = 1;
 {
     
     NSLog(@"in startUpdateswithSliderValue Accelerometer");
-    NSTimeInterval delta = 0.01;
+    NSTimeInterval delta = 0.02;
     NSTimeInterval updateInterval = accelerometerMin + delta * sliderValue;
     
-    CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
+    mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
     NSLog(@"check accelerometer");
     
    // ViewController * __weak weakSelf = self;
@@ -221,7 +223,7 @@ double maxradius = 1;
             NSLog(@"z value is");
             NSLog(@"%f",c);
             NSLog(@"ur here");
-            if ((a <= 0.35 & a>= -0.35) & (b <= -0.75 & b >= -0.93) & (c<=0.62 & c>= -0.67)) {
+            if ((a <= 0.35 & a>= -0.35) & (b <= -0.80 & b >= -0.93) & (c<=0.56 & c>= -0.67)) {
                 speed = speed1; //speed = 0.2
                 NSLog(@"in loop1");
                 NSLog(@"speed is : %f",speed);
@@ -232,7 +234,7 @@ double maxradius = 1;
                 }];
             }
             //inclination
-            else if ((a <= 0.35 & a >= -0.35) & (b >= -0.78 & b <= -0.50 )& (c >= -0.77 & c<= -0.58)){
+            else if ((a <= 0.35 & a >= -0.35) & (b >= -0.78 & b <= -0.50 )& (c >= -0.90 & c<= -0.58)){
                  NSLog(@"in loop2");
                 speed = speed1 + 0.2;
                 NSLog(@"speed is : %f",speed);
@@ -245,20 +247,33 @@ double maxradius = 1;
                     }
                 }];
             }
-            
-            else if ((a <= 0.35 & a >= -0.35) & (b <= -0.55 & b >= -0.75 )& (c >= -0.81 & c<= -0.75)){
-                 NSLog(@"in loop3");
-                speed = speed1 + 0.4;
-                NSLog(@"speed is : %f",speed);
-                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+            else if ((a <= 0.35 & a >= -0.35) & (b <= -0.30 & b >= -0.45 )& (c >= -1.0 & c<= -0.85)){
+                
+                if(excess1 >0){
+                     NSLog(@"in other loop excess >1");
+                    [self.Romo3 driveBackwardWithSpeed:0.5];
+                    excess1 = 0;
+                }
+                else{
+                    NSLog(@"in loop3");
+                    speed = speed1 + 0.4;
+                    NSLog(@"speed is : %f",speed);
+                    [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
                     if (success) {
                         self.Romo.expression=RMCharacterExpressionExcited;
                         self.Romo.emotion=RMCharacterEmotionExcited;
                         [self.Romo3 driveForwardWithSpeed:speed];
                     }
-                }];
+                    }];
+                }
             }
-            else if ((a <= 0.35 & a >= -0.35) & ((b <= -0.02 & b >= -0.50) || (b >= -0.55 & b <= -0.75 ) )& (c >= -1.10 & c <= -0.76)){
+            else if ((a <= 0.35 & a >= -0.35) & ((b >=-0.25  & b <= -0.001) || (b >= -0.55 & b <= -0.75 ) )& (c >= -1.10 & c <= -0.76)){
+                if(excess1 >0){
+                     NSLog(@"in other loop excess >1");
+                    [self.Romo3 driveBackwardWithSpeed:0.7];
+                    excess1 = 0;
+                }
+                else{
                  NSLog(@"in loop4");
                 speed = speed1 + 0.6;
                 NSLog(@"speed is : %f",speed);
@@ -269,24 +284,34 @@ double maxradius = 1;
                         [self.Romo3 driveForwardWithSpeed:speed];
                     }
                 }];
-            }
+                }
+             }
+            
+
+            
             // declination
             
-            else if ((a <= 0.35 & a >= -0.35) & (b >= -1.0 & b <= -0.80 )& (c >= -0.55 & c<= -0.11)){
+            else if ((a <= 0.35 & a >= -0.35) & (b >= -1.0 & b <= -0.80 )& (c >= -0.55 & c<= -0.35)){
                  NSLog(@"in loop5");
                 speed = speed1 - 0.2;
                 NSLog(@"speed is : %f",speed);
                 [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
                     if (success) {
-                        self.Romo.expression=RMCharacterExpressionScared;
-                        self.Romo.emotion=RMCharacterEmotionScared;
-                        [self.Romo3 driveForwardWithSpeed:speed];
+                            self.Romo.expression=RMCharacterExpressionScared;
+                            self.Romo.emotion=RMCharacterEmotionScared;
+                            [self.Romo3 driveForwardWithSpeed:speed];
                     }
                 }];
             }
 
-            else if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.80) || (b >= -1.0 & b <= -0.80) )& (c >= -0.19 & c<= 0.50)){
-                 NSLog(@"in loop7");
+            else if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99) || (b >= -1.0 & b <= -0.80) )& (c >= -0.40 & c<= -0.15)){
+                if(excess1 >0){
+                     NSLog(@"in other loop excess >1");
+                    [self.Romo3 driveForwardWithSpeed:0.7];
+                    excess1 = 0;
+                }
+                else{
+                 NSLog(@"in loop6");
                 speed = speed1 - 0.3;
                 NSLog(@"speed is : %f",speed);
                 [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
@@ -296,31 +321,53 @@ double maxradius = 1;
                         [self.Romo3 driveForwardWithSpeed:speed];
                     }
                 }];
+                }
             }
-
             
-            //stop in excess inclination
-            else if (((a <= 0.35 & a >= -0.35) & (b >= -0.50 & b <= -0.10 )& (c >= -1.10 & c <= -0.76))){
-                
-                [self.Romo3 stopDriving];
+            else if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99) || (b >= -1.0 & b <= -0.80) )& (c >= -0.15 & c<= 0.15)){
+                if(excess1 >0){
+                    NSLog(@"in other loop excess >1");
+                    [self.Romo3 driveForwardWithSpeed:0.5];
+                    excess1 =0;
+                }
+                else{
+                    NSLog(@"in loop7");
+                    speed = speed1 - 0.3;
+                    NSLog(@"speed is : %f",speed);
+                    [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        self.Romo.expression=RMCharacterExpressionBored;
+                        self.Romo.emotion=RMCharacterEmotionBewildered;
+                        [self.Romo3 driveForwardWithSpeed:speed];
+                    }
+                    }];
+                }
+            }
+            //stop in excess decination
+            else if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99) || (b >= -1.0 & b <= -0.80) )& (c >= 0.10 & c<= 1.10)){
+                //excess1 =  excess1 +1;
+                //NSLog(@"excess value is :%f",excess1);
                 self.Romo.expression=RMCharacterExpressionDizzy;
                 self.Romo.emotion=RMCharacterEmotionIndifferent;
+                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 stopDriving];
+                    }
+                }];
             }
-            //stopn in excess decination
-            else if ((a >= 0.35 & a <= -0.35)& (b >= 1.0 & b <= -0.80 )& (c >= 0.50 & c<= 0.70)){
-                
-                [self.Romo3 stopDriving];
+                //stop in excess inclination
+            else if (((a <= 0.35 & a >= -0.35) & (b >= -0.01 & b <= 0.22 )& (c >= -1.10 & c <= -0.76))){
+               // excess1 = excess1 +1;
+                //NSLog(@"excess value is :%f",excess1);
                 self.Romo.expression=RMCharacterExpressionDizzy;
                 self.Romo.emotion=RMCharacterEmotionIndifferent;
-            }
-            
-            
-        
+                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 stopDriving];
+                    }
+                }];            }
         }];
     }
-    
-
-    
     //self.updateIntervalLabel.text = [NSString stringWithFormat:@"%f", updateInterval];
 }
 
@@ -333,7 +380,7 @@ double maxradius = 1;
     return @"";
 }
 
-- (void)perform:(NSString *)command {
+/*- (void)perform:(NSString *)command {
     
     
     NSString *cmd = [command uppercaseString];
@@ -596,7 +643,7 @@ double maxradius = 1;
         self.Romo.expression=RMCharacterExpressionBored;
         self.Romo.emotion=RMCharacterEmotionCurious;
     }
-}
+} */
 
 #pragma mark - RMCoreDelegate Methods
 - (void)robotDidConnect:(RMCoreRobot *)robot
@@ -807,7 +854,7 @@ double maxradius = 1;
     NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     [self log:msg];
-    [self perform:msg];
+    //[self perform:msg];
     [sock readDataWithTimeout:READ_TIMEOUT tag:0];
 }
 
